@@ -161,7 +161,11 @@ class TitkosController extends Controller
     }
 
     public static function findNextTitok($day1, $day2) {
-        $now = new DateTime();
+        if (date('H') > 20) {
+            $now = new DateTime('+1 day');
+        } else {
+            $now = new DateTime();
+        }
         $daysOfWeek = array(
             'sunday' => 0,
             'monday' => 1,
