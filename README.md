@@ -1,3 +1,5 @@
+Landlord is a web application for managing apartments for rental. I created this project because i kinda like the yii framework i came across in my job and wanted to just create something for fun. I might deploy it to a server if its not in a half-assed state anymore-
+
 <p align="center">
     <a href="https://github.com/yiisoft" target="_blank">
         <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
