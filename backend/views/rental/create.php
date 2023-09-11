@@ -10,11 +10,9 @@ $this->params['breadcrumbs'][] = ['label' => 'Rentals', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="rental-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <?= $this->render('_form', [
         'model' => $model,
+        'apartmentId' => $apartmentId ?? null
     ]) ?>
 
 </div>

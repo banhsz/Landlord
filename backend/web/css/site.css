@@ -123,6 +123,8 @@ a:hover {
 
 .img-apt-view {
     max-height: 450px;
+    width: 100%;
+    object-fit: cover;
 }
 
 .grid-view .pagination {

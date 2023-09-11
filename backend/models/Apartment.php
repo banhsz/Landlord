@@ -58,14 +58,14 @@ class Apartment extends \yii\db\ActiveRecord
             'address' => 'Address',
             'rent' => 'Rent',
             'rooms' => 'Rooms',
-            'is_smoking' => 'Is Smoking',
-            'is_animal_allowed' => 'Is Animal Allowed',
-            'is_parking_spot' => 'Is Parking Spot',
+            'is_smoking' => 'Smoking',
+            'is_animal_allowed' => 'Pets Allowed',
+            'is_parking_spot' => 'Personal Parking Spot',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
-            'image_path' => 'Image Path',
+            'image_path' => 'Image',
         ];
     }
 
@@ -79,6 +79,7 @@ class Apartment extends \yii\db\ActiveRecord
                 var_dump($this->imageFile->error);
             }
         }
+        return false;
     }
 
     public function getImageFile()

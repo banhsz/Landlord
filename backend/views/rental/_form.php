@@ -21,26 +21,34 @@ use yii\widgets\ActiveForm;
     <?php
         $apartments = Apartment::find()->asArray()->all();
         $apartmentList = ArrayHelper::map($apartments, 'id', 'name');
-        var_dump($apartmentList);
+        //var_dump($apartmentList);
 
         $tenants = Tenant::find()->asArray()->all();
         $tenantList = ArrayHelper::map($tenants, 'id', 'name');
-        var_dump($tenantList);
+        //var_dump($tenantList);
     ?>
 
-    <?=
-        $form->field($model, 'apartment_id')->widget(Select2::class, [
-            'data' => $apartmentList,
-            'options' => ['placeholder' => 'Select an apartment...'],
-            'pluginOptions' => [
-                'allowClear' => true,
-                'minimumInputLength' => 0,
-            ],
-        ]);
+    <?php
+        if (isset($apartmentId)) {
+            echo $form->field($model, 'apartment_id')->hiddenInput(['value' => $apartmentId])->label(false);
+        } else {
+            echo $form->field($model, 'apartment_id')->widget(Select2::class, [
+                'data' => $apartmentList,
+                'options' => ['placeholder' => 'Select an apartment...'],
+                'pluginOptions' => [
+                    'allowClear' => true,
+                    'minimumInputLength' => 0,
+                ],
+            ]);
+        }
     ?>
 
     <!-- <?= $form->field($model, 'tenant_id')->textInput() ?> -->
 
+    <?php
+        echo "<span>Cant find tenant?&nbsp;</span>";
+        echo Html::a('<i class="fa fa-plus"></i>&nbsp;New Tenant', ['tenant/create'], ['class' => 'btn btn-success']);
+    ?>
     <?=
         $form->field($model, 'tenant_id')->widget(Select2::class, [
             'data' => $tenantList,

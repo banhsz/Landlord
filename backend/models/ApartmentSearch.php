@@ -17,7 +17,7 @@ class ApartmentSearch extends Apartment
     {
         return [
             [['id', 'rent', 'rooms', 'is_smoking', 'is_animal_allowed', 'is_parking_spot', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
-            [['name', 'address', 'image_path'], 'safe'],
+            [['name', 'address'], 'safe'],
         ];
     }
 

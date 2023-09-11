@@ -198,14 +198,23 @@ class ApartmentController extends Controller
                         $path = Url::to('/img/placeholder.png');
 
                     }
-                    return "<img class='thumbnail' src='$path'>";
+                    $pathToApartment = "/apartment/view?id=$model->id";
+                    return "<a href='$pathToApartment'><img class='thumbnail' src='$path' alt=''></a>";
                 },
                 'format' => 'html',
                 'headerOptions' => ['style' => 'width: 100px;'], // Adjust the width here
                 'contentOptions' => ['style' => 'width: 100px;'], // Adjust the width here
+                'enableSorting' => false,
             ],
             //'id',
-            'name',
+            [
+                'attribute' => 'name',
+                'value' => function ($model) {
+                    $pathToApartment = "/apartment/view?id=$model->id";
+                    return "<a href='$pathToApartment'>$model->name</a>";
+                },
+                'format' => 'html',
+            ],
             'address',
             [
                 'attribute' => 'rent',
@@ -252,7 +261,14 @@ class ApartmentController extends Controller
                 'contentOptions' => ['style' => 'min-width: 100px;'], // Adjust the width here
                 'header' => 'Action'
             ],
-            'name',
+            [
+                'attribute' => 'name',
+                'value' => function ($model) {
+                    $pathToApartment = "/apartment/view?id=$model->id";
+                    return "<a href='$pathToApartment'>$model->name</a>";
+                },
+                'format' => 'html',
+            ],
         ];
 
         // If mobile device, return only few columns

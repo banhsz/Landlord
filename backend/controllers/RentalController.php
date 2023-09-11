@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\Rental;
 use backend\models\RentalSearch;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -71,7 +72,7 @@ class RentalController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['apartment/view', 'id' => $model->apartment_id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -79,6 +80,7 @@ class RentalController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'apartmentId' => $this->request->get('apartment_id') ?? null
         ]);
     }
 
