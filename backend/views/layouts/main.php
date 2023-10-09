@@ -16,6 +16,9 @@ AppAsset::register($this);
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>" class="h-100">
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -24,61 +27,92 @@ AppAsset::register($this);
     <?php $this->head() ?>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body class="d-flex flex-column h-100">
+<body class="layout-fixed">
 <?php $this->beginBody() ?>
+<div class="wrapper">
+    <?php $controller = Yii::$app->controller->id ?>
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light sticky-top">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            <li class="nav-item pl-2 pr-2">
+                <a class="nav-link text-white" data-widget="pushmenu" href="#" role="button"><i class="fa fa-bars"></i></a>
+            </li>
+        </ul>
 
-<header>
-    <?php
-    NavBar::begin([
-        'innerContainerOptions' => ['class' => 'container-fluid'],
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
-        ],
-    ]);
-    $menuItems = [
-        ['label' => 'Apartments', 'url' => ['/apartment/index']],
-        ['label' => 'Tenants', 'url' => ['/tenant/index']],
-        ['label' => 'Rentals', 'url' => ['/rental/index']],
-    ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-    }     
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav me-auto mb-2 mb-md-0'],
-        'items' => $menuItems,
-    ]);
-    if (Yii::$app->user->isGuest) {
-        echo Html::tag('div',Html::a('Login',['/site/login'],['class' => ['btn btn-link login text-decoration-none']]),['class' => ['d-flex']]);
-    } else {
-        echo Html::beginForm(['/site/logout'], 'post', ['class' => 'd-flex'])
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-light text-decoration-none']
-            )
-            . Html::endForm();
-    }
-    NavBar::end();
-    ?>
-</header>
+        <!-- SEARCH FORM -->
+        <form class="form-inline ml-3">
+            <div class="input-group input-group-sm">
+                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn btn-navbar" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
 
-<main role="main" class="flex-shrink-0">
-    <div class="container-fluid">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
+        <!-- Right navbar links -->
+        <ul class="navbar-nav ml-auto pr-2">
+            <?php
+                echo Html::beginForm(['/site/logout'], 'post', ['class' => 'd-flex'])
+                    . Html::submitButton(
+                        'Logout (' . Yii::$app->user->identity->username . ')',
+                        ['class' => 'btn btn-light text-decoration-none']
+                    )
+                    . Html::endForm();
+            ?>
+        </ul>
+    </nav>
+    <div class="content-wrapper">
         <?= $content ?>
     </div>
-</main>
-
-<footer class="footer mt-auto py-3 text-muted">
-    <div class="container-fluid">
-        <span class="">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?> | </span>
-        <span class=""><?= Yii::powered() ?></span>
+    <aside class="main-sidebar sidebar-dark-primary elevation-1">
+        <!-- Brand Logo -->
+        <a href="/" class="brand-link">
+            <span class="brand-text font-weight-light">Landlord</span>
+        </a>
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
+                    <!-- Add icons to the links using the .nav-icon class
+                         with font-awesome or any other icon font library -->
+                    <li class="nav-item">
+                        <a href="/" class="nav-link <?= ($controller == 'site') ? 'active' : '' ?>">
+                            <i class="nav-icon fa fa-home"></i>
+                            <p>Home</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/apartment" class="nav-link <?= ($controller == 'apartment') ? 'active' : '' ?>">
+                            <i class="nav-icon fa fa-building"></i>
+                            <p>Apartments</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/rental" class="nav-link <?= ($controller == 'rental') ? 'active' : '' ?>">
+                            <i class="nav-icon fa fa-key"></i>
+                            <p>Rentals</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/tenant" class="nav-link <?= ($controller == 'tenant') ? 'active' : '' ?>">
+                            <i class="nav-icon fa fa-male"></i>
+                            <p>Tenants</p>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+    </aside>
+    <div class="main-footer">
+        Footer
     </div>
-</footer>
+</div>
 
 <?php $this->endBody() ?>
 </body>

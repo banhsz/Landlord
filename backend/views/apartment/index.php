@@ -1,11 +1,7 @@
 <?php
 
-use backend\models\Apartment;
 use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\grid\ActionColumn;
 use yii\grid\GridView;
-use yii\widgets\LinkPager;
 use yii\widgets\Pjax;
 /** @var yii\web\View $this */
 /** @var backend\models\ApartmentSearch $searchModel */

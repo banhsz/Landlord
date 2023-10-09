@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\Rental;
 use backend\models\RentalSearch;
+use backend\models\Tenant;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -69,9 +70,16 @@ class RentalController extends Controller
     public function actionCreate()
     {
         $model = new Rental();
+        $tenantModel = new Tenant();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post())) {
+                if ($this->request->post('toggle-radio') === 'yes') {
+                    $tenantModel->load($this->request->post());
+                    $tenantModel->save();
+                    $model->tenant_id = $tenantModel->id;
+                }
+                $model->save();
                 return $this->redirect(['apartment/view', 'id' => $model->apartment_id]);
             }
         } else {

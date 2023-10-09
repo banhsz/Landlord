@@ -10,6 +10,10 @@ use yii\widgets\ActiveForm;
 /** @var yii\web\View $this */
 /** @var backend\models\Rental $model */
 /** @var yii\widgets\ActiveForm $form */
+
+$tenantModel = new Tenant();
+
+$this->registerJsFile('@web/js/rental/_form.js');
 ?>
 
 <div class="rental-form">
@@ -28,8 +32,27 @@ use yii\widgets\ActiveForm;
         //var_dump($tenantList);
     ?>
 
+    <div class="toggle-buttons">
+        <span>New tenant?</span>
+        <?= Html::radio('toggle-radio', true, ['value' => 'yes', 'id' => 'toggle-yes']) ?>
+        <?= Html::label('Yes', 'toggle-yes', ['class' => 'btn btn-success']) ?>
+
+        <?= Html::radio('toggle-radio', false, ['value' => 'no', 'id' => 'toggle-no']) ?>
+        <?= Html::label('No', 'toggle-no', ['class' => 'btn btn-danger']) ?>
+    </div>
+    <div id="new-tenant-div" class="mb-3">
+        <h2>Tenant</h2>
+        <?= $form->field($tenantModel, 'name')->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($tenantModel, 'e_mail')->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($tenantModel, 'phone')->textInput(['maxlength' => true]) ?>
+    </div>
+
+    <h2>Rental</h2>
     <?php
         if (isset($apartmentId)) {
+
             echo $form->field($model, 'apartment_id')->hiddenInput(['value' => $apartmentId])->label(false);
         } else {
             echo $form->field($model, 'apartment_id')->widget(Select2::class, [
@@ -45,25 +68,24 @@ use yii\widgets\ActiveForm;
 
     <!-- <?= $form->field($model, 'tenant_id')->textInput() ?> -->
 
-    <?php
-        echo "<span>Cant find tenant?&nbsp;</span>";
-        echo Html::a('<i class="fa fa-plus"></i>&nbsp;New Tenant', ['tenant/create'], ['class' => 'btn btn-success']);
-    ?>
-    <?=
-        $form->field($model, 'tenant_id')->widget(Select2::class, [
-            'data' => $tenantList,
-            'options' => ['placeholder' => 'Select a tenant...'],
-            'pluginOptions' => [
-                'allowClear' => true,
-                'minimumInputLength' => 0,
-            ],
-        ]);
-    ?>
+    <div id="apartment-id-div" style="display: none">
+        <?=
+            $form->field($model, 'tenant_id')->widget(Select2::class, [
+                'data' => $tenantList,
+                'options' => ['placeholder' => 'Select a tenant...'],
+                'pluginOptions' => [
+                    'allowClear' => true,
+                    'minimumInputLength' => 0,
+                ],
+            ]);
+        ?>
+    </div>
 
     <?= $form->field($model, 'rent_start')->textInput() ?>
 
     <?= $form->field($model, 'rent_end')->textInput() ?>
 
+    <!--
     <?= $form->field($model, 'created_by')->textInput() ?>
 
     <?= $form->field($model, 'updated_by')->textInput() ?>
@@ -71,9 +93,10 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'created_at')->textInput() ?>
 
     <?= $form->field($model, 'updated_at')->textInput() ?>
+    -->
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Save', ['class' => 'btn btn-success mt-3']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

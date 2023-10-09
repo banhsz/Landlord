@@ -173,3 +173,7 @@ table {
     border-collapse: separate;
     border-spacing: 0;
 }
+
+.text-landlord {
+    color: #0dcaf0;
+}
