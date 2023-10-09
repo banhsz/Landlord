@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Apartments', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="apartment-view">
-    <div class="container-fluid m-0 p-0">
+<div class="apartment-view p-2">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-lg-4">
                 <h1><?= Html::encode($this->title) ?></h1>
@@ -81,6 +81,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= Html::a('<i class="fa fa-plus"></i>&nbsp;New Rental', ['rental/create', 'apartment_id' => $model->id], ['class' => 'btn btn-success']) ?>
                     <?php
                         echo GridView::widget([
+                            'options' => [
+                                'class' => 'table-responsive grid-view',
+                            ],
                             'dataProvider' => $rentalDataProvider ?? null,
                             'filterModel' => $rentalSearchModel ?? null,
                             'columns' => [

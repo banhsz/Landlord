@@ -13,23 +13,25 @@ use yii\widgets\Pjax;
 $this->title = 'Tenants';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="tenant-index">
+<div class="tenant-index p-2">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Tenant', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<i class="fa fa-plus"></i>&nbsp;New Tenant', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
+        'options' => [
+            'class' => 'table-responsive grid-view',
+        ],
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'name',
             'e_mail',
@@ -45,6 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                  }
             ],
         ],
+        'layout' => "{summary}\n{pager}\n{items}\n{pager}\n{summary}",
     ]); ?>
 
     <?php Pjax::end(); ?>

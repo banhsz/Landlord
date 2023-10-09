@@ -46,6 +46,9 @@ class TenantSearch extends Tenant
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 10, // Set the maximum number of items per page here
+            ],
         ]);
 
         $this->load($params);

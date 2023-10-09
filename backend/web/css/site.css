@@ -177,3 +177,13 @@ table {
 .text-landlord {
     color: #0dcaf0;
 }
+
+.navbar-notification-count {
+    position: relative;
+    left: -20px;
+    top: 10px;
+    background: red;
+    color: wheat;
+    padding: 2px;
+    border-radius: 4px;
+}

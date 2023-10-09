@@ -16,12 +16,11 @@ AppAsset::register($this);
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>" class="h-100">
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+    <script src="/js/jquery/3.7.1_dist_jquery.min.js"></script>
+    <script src="/js/adminlte/3.2_dist_js_adminlte.min.js"></script>
+    <link rel="stylesheet" href="/css/adminlte/3.2_dist_css_adminlte.min.css">
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
@@ -50,7 +49,7 @@ AppAsset::register($this);
         </ul>
 
         <!-- SEARCH FORM -->
-        <form class="form-inline ml-3">
+        <form class="form-inline ml-3 d-none">
             <div class="input-group input-group-sm">
                 <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
                 <div class="input-group-append">
@@ -63,14 +62,13 @@ AppAsset::register($this);
 
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto pr-2">
-            <?php
-                echo Html::beginForm(['/site/logout'], 'post', ['class' => 'd-flex'])
-                    . Html::submitButton(
-                        'Logout (' . Yii::$app->user->identity->username . ')',
-                        ['class' => 'btn btn-light text-decoration-none']
-                    )
-                    . Html::endForm();
-            ?>
+            <li>
+                <a class="btn text-white" href=""><span class="fa fa-user text-white mr-2"></span><?= Yii::$app->user->identity->username ?></a>
+            </li>
+            <li>
+                <a class="btn" href=""><span class="fa fa-bell text-white"></span></a>
+                <a class="navbar-notification-count text-white" href="">5</a>
+            </li>
         </ul>
     </nav>
     <div class="content-wrapper">
@@ -85,7 +83,7 @@ AppAsset::register($this);
         <div class="sidebar">
             <!-- Sidebar Menu -->
             <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
+                <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-item">
@@ -93,6 +91,29 @@ AppAsset::register($this);
                             <i class="nav-icon fa fa-home"></i>
                             <p>Home</p>
                         </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fa fa-user"></i>
+                            <p>
+                                <?= Yii::$app->user->identity->username ?>
+                                <i class="right fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="fa fa-bell nav-icon"></i>
+                                    <p>Notifications</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="fa fa-gears nav-icon"></i>
+                                    <p>Profile</p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-item">
                         <a href="/apartment" class="nav-link <?= ($controller == 'apartment') ? 'active' : '' ?>">
@@ -112,6 +133,16 @@ AppAsset::register($this);
                             <p>Tenants</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <?php
+                        echo Html::beginForm(['/site/logout'], 'post', ['class' => 'd-flex'])
+                            . Html::submitButton(
+                                '<span class="fa fa-sign-out mr-2"></span>Logout (' . Yii::$app->user->identity->username . ')',
+                                ['class' => 'btn btn-light btn-block text-decoration-none']
+                            )
+                            . Html::endForm();
+                        ?>
+                    </li>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
@@ -119,7 +150,7 @@ AppAsset::register($this);
         <!-- /.sidebar -->
     </aside>
     <div class="main-footer">
-        Footer
+        Landlord
     </div>
 </div>
 
