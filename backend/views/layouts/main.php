@@ -30,6 +30,15 @@ AppAsset::register($this);
 <body class="layout-fixed">
 <?php $this->beginBody() ?>
 <div class="wrapper">
+    <?php //not having this breaks bootstrap js for some fucking reason
+        NavBar::begin([
+            'options' => [
+                'style' => 'display: none;',
+            ],
+        ]);
+        NavBar::end();
+    ?>
+
     <?php $controller = Yii::$app->controller->id ?>
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light sticky-top">
