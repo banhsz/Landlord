@@ -67,7 +67,7 @@ class ApartmentController extends Controller
         $rentalSearchModel = new RentalSearch();
         $rentalDataProvider = $rentalSearchModel->search($this->request->queryParams);
         // Rentals for current apartment only. no shit?
-        $rentalDataProvider->query->andFilterWhere(["apartment_id" => $id]);
+        $rentalDataProvider->query->andFilterWhere(["apartment_id" => $id])->orderBy(['rent_start' => SORT_DESC]);
 
         return $this->render('view', [
             'model' => $this->findModel($id),

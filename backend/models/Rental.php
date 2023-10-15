@@ -16,6 +16,7 @@ use Yii;
  * @property int|null $updated_by
  * @property int|null $created_at
  * @property int|null $updated_at
+ * @property Tenant $tenant
  */
 class Rental extends \yii\db\ActiveRecord
 {
@@ -33,7 +34,8 @@ class Rental extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['apartment_id', 'tenant_id', 'rent_start', 'rent_end', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['apartment_id', 'tenant_id'], 'integer'],
+            [['rent_start', 'rent_end', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -53,5 +55,32 @@ class Rental extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
+    }
+
+    public function getTenant() {
+        return $this->hasOne(Tenant::class, ['id' => 'tenant_id']);
+    }
+
+    public function getRental() {
+        return $this->hasOne(Rental::class, ['id' => 'rental_id']);
+    }
+
+    public function getApartment() {
+        return $this->hasOne(Apartment::class, ['id' => 'apartment_id']);
+    }
+
+    public function beforeSave($insert) {
+        if (parent::beforeSave($insert)) {
+            if ($this->rent_start) $this->rent_start = strtotime($this->rent_start);
+            if ($this->rent_end) $this->rent_end = strtotime($this->rent_end);
+            $this->updated_at = time();
+            $this->updated_by = Yii::$app->user->identity->getId();
+            if ($this->isNewRecord) {
+                $this->created_at = time();
+                $this->created_by = Yii::$app->user->identity->getId();
+            }
+            return true;
+        }
+        return false;
     }
 }

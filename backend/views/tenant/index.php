@@ -13,7 +13,7 @@ use yii\widgets\Pjax;
 $this->title = 'Tenants';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="tenant-index p-2">
+<div class="tenant-index p-3">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

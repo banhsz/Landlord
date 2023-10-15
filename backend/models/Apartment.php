@@ -82,6 +82,10 @@ class Apartment extends \yii\db\ActiveRecord
         return false;
     }
 
+    public function getRental() {
+        return $this->hasMany(Rental::class, ['id' => 'rental_id']);
+    }
+
     public function getImageFile()
     {
         return null;

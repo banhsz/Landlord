@@ -24,7 +24,7 @@ AppAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
 </head>
 <body class="layout-fixed">
 <?php $this->beginBody() ?>
@@ -75,6 +75,7 @@ AppAsset::register($this);
         <?= $content ?>
     </div>
     <aside class="main-sidebar sidebar-dark-primary elevation-1">
+        <h3 class="pl-3 pt-2 text-light">Landlord</h3>
         <!-- Brand Logo -->
         <a href="/" class="brand-link">
             <span class="brand-text font-weight-light">Landlord</span>
@@ -96,7 +97,7 @@ AppAsset::register($this);
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-user"></i>
                             <p>
-                                <?= Yii::$app->user->identity->username ?>
+                                Profile (<?= Yii::$app->user->identity->username ?>)
                                 <i class="right fa fa-angle-left"></i>
                             </p>
                         </a>
@@ -109,15 +110,36 @@ AppAsset::register($this);
                             </li>
                             <li class="nav-item">
                                 <a href="" class="nav-link">
-                                    <i class="fa fa-gears nav-icon"></i>
-                                    <p>Profile</p>
+                                    <i class="fa fa-user-cog nav-icon"></i>
+                                    <p>Profile Settings</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/" class="nav-link <?= ($controller == '') ? 'active' : '' ?>">
+                            <i class="nav-icon fa fa-wrench"></i>
+                            <p>Configuration</p>
+                            <i class="right fa fa-angle-left"></i>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="fa fa-users nav-icon"></i>
+                                    <p>Users</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="fa fa-cog nav-icon"></i>
+                                    <p>Site Settings</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
                     <li class="nav-item">
                         <a href="/apartment" class="nav-link <?= ($controller == 'apartment') ? 'active' : '' ?>">
-                            <i class="nav-icon fa fa-building"></i>
+                            <i class="nav-icon fas fa-building"></i>
                             <p>Apartments</p>
                         </a>
                     </li>
@@ -134,10 +156,28 @@ AppAsset::register($this);
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="/" class="nav-link <?= ($controller == '') ? 'active' : '' ?>">
+                            <i class="nav-icon fa fa-file-invoice-dollar"></i>
+                            <p>Invoices</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/" class="nav-link <?= ($controller == '') ? 'active' : '' ?>">
+                            <i class="nav-icon fa fa-money-bill-wave"></i>
+                            <p>Payments</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/" class="nav-link <?= ($controller == '') ? 'active' : '' ?>">
+                            <i class="nav-icon fa fa-ticket-alt"></i>
+                            <p>Tickets</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <?php
                         echo Html::beginForm(['/site/logout'], 'post', ['class' => 'd-flex'])
                             . Html::submitButton(
-                                '<span class="fa fa-sign-out mr-2"></span>Logout (' . Yii::$app->user->identity->username . ')',
+                                '<span class="fa fa-sign-out-alt mr-2"></span>Logout (' . Yii::$app->user->identity->username . ')',
                                 ['class' => 'btn btn-light btn-block text-decoration-none']
                             )
                             . Html::endForm();

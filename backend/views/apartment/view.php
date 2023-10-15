@@ -2,6 +2,7 @@
 
 use backend\models\Rental;
 use backend\models\Tenant;
+use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -84,9 +85,22 @@ $this->params['breadcrumbs'][] = $this->title;
                             'options' => [
                                 'class' => 'table-responsive grid-view',
                             ],
+                            'rowOptions' => function ($model, $key, $index, $grid) {
+                                if (isset($model->rent_end) && $model->rent_end < time()) {
+                                    return ['style' => 'filter: contrast(60%)'];
+                                } else {
+                                    return [];
+                                }
+                            },
                             'dataProvider' => $rentalDataProvider ?? null,
                             'filterModel' => $rentalSearchModel ?? null,
                             'columns' => [
+                                [
+                                    'class' => ActionColumn::className(),
+                                    'urlCreator' => function ($action, Rental $model, $key, $index, $column) {
+                                        return Url::toRoute(['/rental/'.$action, 'id' => $model->id]);
+                                    }
+                                ],
                                 //['class' => 'yii\grid\SerialColumn'],
                                 [
                                     'attribute' => 'id',
@@ -100,25 +114,25 @@ $this->params['breadcrumbs'][] = $this->title;
                                     },
                                     'label' => 'Tenant'
                                 ],
-                                'rent_start',
-                                'rent_end',
+                                [
+                                    'attribute' => 'rent_start',
+                                    'value' => function ($model) {
+                                        return isset($model->rent_start) ? date('Y-m-d', $model->rent_start) : null;
+                                    },
+                                ],
+                                [
+                                    'attribute' => 'rent_end',
+                                    'value' => function ($model) {
+                                        return isset($model->rent_end) ? date('Y-m-d', $model->rent_end) : null;
+                                    },
+                                ],
                                 //'created_by',
                                 //'updated_by',
                                 //'created_at',
                                 //'updated_at',
-                                /*
-                                [
-                                    'class' => ActionColumn::className(),
-                                    'urlCreator' => function ($action, Rental $model, $key, $index, $column) {
-                                        return Url::toRoute([$action, 'id' => $model->id]);
-                                    }
-                                ],
-                                */
+
                             ],
                         ]);
-                        //var_dump($rentals ?? "");
-                        //var_dump($rentals ? $tenant = Tenant::findOne(['id' => $rentals[0]->tenant_id]) : '');
-                        //var_dump($rentals ?? "");
                     ?>
                 </div>
             </div>

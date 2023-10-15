@@ -21,6 +21,7 @@ AppAsset::register($this);
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
 </head>
 <body class="d-flex flex-column h-100">
 <?php $this->beginBody() ?>
@@ -28,7 +29,7 @@ AppAsset::register($this);
 <header>
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' => "<span class='fa fa-home'></span> Tenant",
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
@@ -38,20 +39,24 @@ AppAsset::register($this);
 
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
+        $menuItems[] = ['label' => '<span class="fa fa-user-plus"></span> Signup', 'url' => ['/site/signup']];
+    } else {
+        $menuItems[] = ['label' => '<span class="fa fa-file-invoice-dollar"></span> Invoices', 'url' => ['/site/']];
+        $menuItems[] = ['label' => '<span class="fa fa-ticket-alt"></span> Tickets', 'url' => ['/site/']];
     }
 
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav me-auto mb-2 mb-md-0'],
         'items' => $menuItems,
+        'encodeLabels' => false
     ]);
     if (Yii::$app->user->isGuest) {
-        echo Html::tag('div',Html::a('Login',['/site/login'],['class' => ['btn btn-link login text-decoration-none']]),['class' => ['d-flex']]);
+        echo Html::tag('div',Html::a('<span class="fa fa-sign-in-alt"></span> Log in',['/site/login'],['class' => ['nav-link text-light text-decoration-none']]),['class' => ['d-flex']]);
     } else {
         echo Html::beginForm(['/site/logout'], 'post', ['class' => 'd-flex'])
             . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout text-decoration-none']
+         '<span class="fa fa-sign-out-alt"></span> Logout (' . Yii::$app->user->identity->username . ')',
+                ['class' => ' text-light btn btn-link logout text-decoration-none']
             )
             . Html::endForm();
     }

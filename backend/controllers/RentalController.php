@@ -42,6 +42,7 @@ class RentalController extends Controller
     {
         $searchModel = new RentalSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider->query->orderBy(['rent_start' => SORT_DESC]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

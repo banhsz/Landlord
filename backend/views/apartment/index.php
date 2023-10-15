@@ -12,7 +12,7 @@ $this->title = 'Apartments';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div class="apartment-index p-2">
+<div class="apartment-index p-3">
     <h1> <?= Html::encode($this->title) ?> </h1>
     <p> <?= Html::a('<i class="fa fa-plus"></i>&nbsp;New Apartment', ['create'], ['class' => 'btn btn-success']) ?> </p>
     <?php Pjax::begin(); ?>

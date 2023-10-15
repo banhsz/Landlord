@@ -71,6 +71,14 @@ class RentalSearch extends Rental
             'updated_at' => $this->updated_at,
         ]);
 
+        if (isset($params['activeOnly']) && ($params['activeOnly'] == 1)) {
+            $query->andWhere(['<=', 'rent_start', time()]);
+            $query->andWhere(['or',
+                ['rent_end' => NULL],
+                ['>=', 'rent_end', time()],
+            ]);
+        }
+
         return $dataProvider;
     }
 }
