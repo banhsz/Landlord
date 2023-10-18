@@ -185,9 +185,12 @@ class ApartmentController extends Controller
                 'urlCreator' => function ($action, Apartment $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                 },
-                'headerOptions' => ['style' => 'mim-width: 100px;'], // Adjust the width here
-                'contentOptions' => ['style' => 'min-width: 100px;'], // Adjust the width here
-                'header' => 'Action'
+                'headerOptions' => ['style' => 'width: 100px;'], // Adjust the width here
+                'contentOptions' => ['style' => 'width: 100px;'], // Adjust the width here
+            ],
+            [
+                'attribute' => 'id',
+                'headerOptions' => ['style' => 'width:1%'],
             ],
             [
                 'attribute' => 'image_path',
@@ -257,9 +260,8 @@ class ApartmentController extends Controller
                 'urlCreator' => function ($action, Apartment $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                 },
-                'headerOptions' => ['style' => 'mim-width: 100px;'], // Adjust the width here
-                'contentOptions' => ['style' => 'min-width: 100px;'], // Adjust the width here
-                'header' => 'Action'
+                'headerOptions' => ['style' => 'width: 100px;'], // Adjust the width here
+                'contentOptions' => ['style' => 'width: 100px;'], // Adjust the width here
             ],
             [
                 'attribute' => 'name',

@@ -28,24 +28,30 @@ $this->params['breadcrumbs'][] = $this->title;
         'options' => [
             'class' => 'table-responsive grid-view',
         ],
+        'tableOptions' => ['class' => 'table table-striped'],
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-            'id',
-            'name',
-            'e_mail',
-            'phone',
-            'created_by',
-            //'updated_by',
-            //'created_at',
-            //'updated_at',
+            //['class' => 'yii\grid\SerialColumn'],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Tenant $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                },
+                'headerOptions' => ['style' => 'width: 100px;'], // Adjust the width here
+                'contentOptions' => ['style' => 'width: 100px;'], // Adjust the width here
             ],
+            [
+                'attribute' => 'id',
+                'headerOptions' => ['style' => 'width:1%'],
+            ],
+            'name',
+            'e_mail',
+            'phone',
+            //'created_by',
+            //'updated_by',
+            //'created_at',
+            //'updated_at',
         ],
         'layout' => "{summary}\n{pager}\n{items}\n{pager}\n{summary}",
     ]); ?>

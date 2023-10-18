@@ -1,5 +1,6 @@
 <?php
 
+use kartik\switchinput\SwitchInput;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -20,11 +21,26 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'rooms')->textInput() ?>
 
-    <?= $form->field($model, 'is_smoking')->textInput() ?>
+    <?= $form->field($model, 'is_smoking')->widget(SwitchInput::class, [
+        'pluginOptions' => [
+            'onText' => 'Yes',
+            'offText' => 'No',
+        ]
+    ]); ?>
 
-    <?= $form->field($model, 'is_animal_allowed')->textInput() ?>
+    <?= $form->field($model, 'is_animal_allowed')->widget(SwitchInput::class, [
+        'pluginOptions' => [
+            'onText' => 'Yes',
+            'offText' => 'No',
+        ]
+    ]); ?>
 
-    <?= $form->field($model, 'is_parking_spot')->textInput() ?>
+    <?= $form->field($model, 'is_parking_spot')->widget(SwitchInput::class, [
+        'pluginOptions' => [
+            'onText' => 'Yes',
+            'offText' => 'No',
+        ]
+    ]); ?>
 
     <!--
         <?= $form->field($model, 'created_by')->textInput() ?>

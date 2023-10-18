@@ -296,4 +296,10 @@ class SiteController extends Controller
         }
         return $result;
     }
+
+    public function actionGames() {
+        return $this->render('games', [
+
+        ]);
+    }
 }

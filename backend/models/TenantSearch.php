@@ -43,6 +43,7 @@ class TenantSearch extends Tenant
         $query = Tenant::find();
 
         // add conditions that should always apply here
+        $query->orderBy(["id" => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

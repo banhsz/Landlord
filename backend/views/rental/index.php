@@ -27,6 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
+        'tableOptions' => ['class' => 'table table-striped'],
         'options' => [
             'class' => 'table-responsive grid-view',
         ],
@@ -40,14 +41,26 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
+            /*
             [
-                'attribute' => 'aaa',
+                'attribute' => 'rent days',
                 'value' => function($model) {
                     return (isset($model->rent_start) && isset($model->rent_end)) ?
                         (($model->rent_end - $model->rent_start) / (60 * 60 * 24) + 1) : null;
                 }
+            ],*/
+            [
+                'class' => ActionColumn::className(),
+                'urlCreator' => function ($action, Rental $model, $key, $index, $column) {
+                    return Url::toRoute([$action, 'id' => $model->id]);
+                },
+                'headerOptions' => ['style' => 'width: 100px;'], // Adjust the width here
+                'contentOptions' => ['style' => 'width: 100px;'], // Adjust the width here
             ],
-            'id',
+            [
+                'attribute' => 'id',
+                'headerOptions' => ['style' => 'width:1%'],
+            ],
             [
                 'attribute' => 'apartment',
                 'value' => function($model) {
@@ -78,12 +91,6 @@ $this->params['breadcrumbs'][] = $this->title;
             //'updated_by',
             //'created_at',
             //'updated_at',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Rental $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
-            ],
         ],
         'layout' => "{summary}\n{pager}\n{items}\n{pager}\n{summary}",
     ]); ?>

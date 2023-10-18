@@ -82,6 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= Html::a('<i class="fa fa-plus"></i>&nbsp;New Rental', ['rental/create', 'apartment_id' => $model->id], ['class' => 'btn btn-success']) ?>
                     <?php
                         echo GridView::widget([
+                            'tableOptions' => ['class' => 'table table-striped'],
                             'options' => [
                                 'class' => 'table-responsive grid-view',
                             ],
@@ -99,13 +100,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'class' => ActionColumn::className(),
                                     'urlCreator' => function ($action, Rental $model, $key, $index, $column) {
                                         return Url::toRoute(['/rental/'.$action, 'id' => $model->id]);
-                                    }
+                                    },
+                                    'headerOptions' => ['style' => 'width: 100px;'], // Adjust the width here
+                                    'contentOptions' => ['style' => 'width: 100px;'], // Adjust the width here
                                 ],
-                                //['class' => 'yii\grid\SerialColumn'],
                                 [
                                     'attribute' => 'id',
-                                    'label' => 'Rental ID'
+                                    'headerOptions' => ['style' => 'width:1%'],
                                 ],
+                                //['class' => 'yii\grid\SerialColumn'],
                                 //'apartment_id',
                                 [
                                     'attribute' => 'tenant_id',
@@ -130,7 +133,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                 //'updated_by',
                                 //'created_at',
                                 //'updated_at',
-
                             ],
                         ]);
                     ?>
