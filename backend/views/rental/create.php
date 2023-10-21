@@ -9,7 +9,7 @@ $this->title = 'Create Rental';
 $this->params['breadcrumbs'][] = ['label' => 'Rentals', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="rental-create">
+<div class="rental-create p-3">
     <?= $this->render('_form', [
         'model' => $model,
         'apartmentId' => $apartmentId ?? null

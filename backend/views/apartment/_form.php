@@ -2,6 +2,7 @@
 
 use kartik\switchinput\SwitchInput;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
@@ -53,6 +54,15 @@ use yii\widgets\ActiveForm;
     -->
 
     <?= $form->field($model, 'imageFile')->fileInput() ?>
+
+    <?php
+        if (isset($model->image_path)) {
+            $path = Url::to('/uploads/img/' . $model->image_path);
+        } else {
+            $path = Url::to('/img/placeholder.png');
+        }
+        echo "<img class='img img-fluid img-apt-view mb-4' src='$path' alt='' style='max-width:300px'>";
+    ?>
 
     <div class="form-group mt-3">
         <?= Html::submitButton('<i class="fa fa-save"></i>&nbsp;Save', ['class' => 'btn btn-success']) ?>

@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                     ]) ?>
                 </p>
-                <div class="col-sm-12">
+                <div class="col-sm-12 m-0 p-0">
                     <?php
                     if (isset($model->image_path)) {
                         $path = Url::to('/uploads/img/' . $model->image_path);
@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ])
                     ?>
                 </div>
-                <div class="col-12">
+                <div class="col-12 m-0 p-0">
                     <p class="">
                         <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                             <i class="fa fa-info"></i>&nbsp;Show more details
