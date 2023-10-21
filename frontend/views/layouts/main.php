@@ -36,7 +36,7 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-
+        ['label' => '<span class="fa fa-money-bill"></span> Pay rent', 'url' => ['/site/pay']]
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => '<span class="fa fa-user-plus"></span> Signup', 'url' => ['/site/signup']];

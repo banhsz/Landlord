@@ -156,7 +156,7 @@ AppAsset::register($this);
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/" class="nav-link <?= ($controller == '') ? 'active' : '' ?>">
+                        <a href="/invoice" class="nav-link <?= ($controller == 'invoice') ? 'active' : '' ?>">
                             <i class="nav-icon fa fa-file-invoice-dollar"></i>
                             <p>Invoices</p>
                         </a>
