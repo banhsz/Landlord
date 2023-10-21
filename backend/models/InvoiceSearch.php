@@ -17,7 +17,7 @@ class InvoiceSearch extends Invoice
     public function rules()
     {
         return [
-            [['id', 'tenant_id', 'period_start', 'period_end', 'amount', 'paid', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'rental_id', 'period_start', 'period_end', 'amount', 'paid', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
         ];
     }
 
@@ -58,7 +58,7 @@ class InvoiceSearch extends Invoice
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'tenant_id' => $this->tenant_id,
+            'rental_id' => $this->rental_id,
             'period_start' => $this->period_start,
             'period_end' => $this->period_end,
             'amount' => $this->amount,

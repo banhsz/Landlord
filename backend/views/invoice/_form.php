@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'tenant_id')->textInput() ?>
+    <?= $form->field($model, 'rental_id')->textInput() ?>
 
     <?= $form->field($model, 'period_start')->textInput() ?>
 

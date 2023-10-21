@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "invoice".
  *
  * @property int $id
- * @property int|null $tenant_id
+ * @property int|null $rental_id
  * @property int|null $period_start
  * @property int|null $period_end
  * @property int|null $amount
@@ -34,7 +34,7 @@ class Invoice extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tenant_id', 'period_start', 'period_end', 'amount', 'paid', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['rental_id', 'period_start', 'period_end', 'amount', 'paid', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
         ];
     }
 
@@ -45,7 +45,7 @@ class Invoice extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'tenant_id' => 'Tenant ID',
+            'rental_id' => 'Rental ID',
             'period_start' => 'Period Start',
             'period_end' => 'Period End',
             'amount' => 'Amount',

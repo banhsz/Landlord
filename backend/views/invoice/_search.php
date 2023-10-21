@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'tenant_id') ?>
+    <?= $form->field($model, 'rental_id') ?>
 
     <?= $form->field($model, 'period_start') ?>
 
