@@ -189,7 +189,7 @@ AppAsset::register($this);
         </div>
         <!-- /.sidebar -->
     </aside>
-    <div class="main-footer">
+    <div class="main-footer d-none">
         Landlord
     </div>
 </div>

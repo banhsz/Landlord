@@ -13,6 +13,7 @@ use Yii;
  * @property int|null $period_end
  * @property int|null $amount
  * @property int|null $paid
+ * @property string|null $breakdown
  * @property int|null $created_by
  * @property int|null $updated_by
  * @property int|null $created_at
@@ -35,6 +36,7 @@ class Invoice extends \yii\db\ActiveRecord
     {
         return [
             [['rental_id', 'period_start', 'period_end', 'amount', 'paid', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['breakdown'], 'string'],
         ];
     }
 
@@ -50,10 +52,18 @@ class Invoice extends \yii\db\ActiveRecord
             'period_end' => 'Period End',
             'amount' => 'Amount',
             'paid' => 'Paid',
+            'breakdown' => 'Breakdown',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
+    }
+
+    public function getLatestInvoice() {
+        return Invoice::find()
+            ->where(["rental_id" => $this->rental_id])
+            ->orderBy(["period_end" => SORT_DESC])
+            ->one();
     }
 }

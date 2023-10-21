@@ -14,7 +14,7 @@ class m231021_081453_create_table_invoice extends Migration
     {
         $this->createTable('invoice', [
             'id' => $this->primaryKey(),
-            'tenant_id' => $this->integer(),
+            'rental_id' => $this->integer(),
             'period_start' => $this->integer(),
             'period_end' => $this->integer(),
             'amount' => $this->integer(),

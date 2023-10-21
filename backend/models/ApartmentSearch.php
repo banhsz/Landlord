@@ -47,7 +47,7 @@ class ApartmentSearch extends Apartment
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 10, // Set the maximum number of items per page here
+                'pageSize' => 4, // Set the maximum number of items per page here
             ],
         ]);
 

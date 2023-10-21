@@ -83,4 +83,12 @@ class Rental extends \yii\db\ActiveRecord
         }
         return false;
     }
+
+    public function isExpired(): bool {
+        return (isset($this->rent_end) && $this->rent_end < time());
+    }
+
+    public function isFuture(): bool {
+        return ($this->rent_start > time());
+    }
 }

@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'class' => 'table-responsive grid-view',
         ],
         'rowOptions' => function ($model, $key, $index, $grid) {
-            if (isset($model->rent_end) && $model->rent_end < time()) {
+            if ($model->isExpired()) {
                 return ['style' => 'filter: contrast(60%)'];
             } else {
                 return [];
