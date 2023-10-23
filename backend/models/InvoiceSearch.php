@@ -1,13 +1,13 @@
 <?php
 
-namespace app\models;
+namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Invoice;
+use backend\models\Invoice;
 
 /**
- * InvoiceSearch represents the model behind the search form of `app\models\Invoice`.
+ * InvoiceSearch represents the model behind the search form of `backend\models\Invoice`.
  */
 class InvoiceSearch extends Invoice
 {
@@ -45,6 +45,9 @@ class InvoiceSearch extends Invoice
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
         ]);
 
         $this->load($params);

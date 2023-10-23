@@ -9,6 +9,7 @@ use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -75,11 +76,12 @@ AppAsset::register($this);
         <?= $content ?>
     </div>
     <aside class="main-sidebar sidebar-dark-primary elevation-1">
-        <h3 class="pl-3 pt-2 text-light">Landlord</h3>
         <!-- Brand Logo -->
-        <a href="/" class="brand-link">
-            <span class="brand-text font-weight-light">Landlord</span>
-        </a>
+        <div class="text-center">
+            <a href="/">
+                <img src="<?= Url::to('/img/pngegg.png') ?>" class="img img-fluid pt-1" style="height:75px">
+            </a>
+        </div>
         <!-- Sidebar -->
         <div class="sidebar">
             <!-- Sidebar Menu -->

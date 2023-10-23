@@ -14,5 +14,11 @@ return [
             'class' => 'yii\rbac\DbManager',
         ],
         */
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'currencyCode' => 'Ft', // Replace with your desired currency code
+            'decimalSeparator' => '.',
+            'thousandSeparator' => ' ',
+        ],
     ],
 ];

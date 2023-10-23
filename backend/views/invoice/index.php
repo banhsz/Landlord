@@ -1,6 +1,6 @@
 <?php
 
-use app\models\Invoice;
+use backend\models\Invoice;
 use yii\bootstrap5\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -9,7 +9,7 @@ use yii\grid\GridView;
 use yii\widgets\Pjax;
 
 /** @var yii\web\View $this */
-/** @var app\models\InvoiceSearch $searchModel */
+/** @var backend\models\InvoiceSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = 'Invoices';
@@ -35,6 +35,8 @@ $this->registerJs("
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'layout' => "{summary}\n{pager}\n{items}\n{pager}\n{summary}", // Place the pager at the top
+        'tableOptions' => ['class' => 'table table-striped'],
         'rowOptions' => function ($model, $key, $index, $grid) {
             if ($model->paid) {
                 return ['style' => 'filter: contrast(60%)'];
@@ -43,9 +45,18 @@ $this->registerJs("
             }
         },
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
+            [
+                'class' => ActionColumn::className(),
+                'urlCreator' => function ($action, Invoice $model, $key, $index, $column) {
+                    return Url::toRoute([$action, 'id' => $model->id]);
+                },
+                'headerOptions' => ['style' => 'width: 100px;'], // Adjust the width here
+                'contentOptions' => ['style' => 'width: 100px;'], // Adjust the width here
+            ],
+            [
+                'attribute' => 'id',
+                'headerOptions' => ['style' => 'width:1%'],
+            ],
             'rental_id',
             [
                 'attribute' => 'period_start',
@@ -65,17 +76,16 @@ $this->registerJs("
                     return Yii::$app->formatter->asDecimal($model->amount, 0, '.') . ' Ft';
                 },
             ],
-            'paid',
+            [
+                'attribute' => 'paid',
+                'value' => function ($model) {
+                    return $model->paid ? "Yes" : "No";
+                },
+            ],
             //'created_by',
             //'updated_by',
             'created_at',
             //'updated_at',
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Invoice $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                }
-            ],
         ],
     ]); ?>
 

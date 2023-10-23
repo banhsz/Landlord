@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use backend\models\Apartment;
+use backend\models\Invoice;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -301,5 +302,25 @@ class SiteController extends Controller
         return $this->render('games', [
 
         ]);
+    }
+
+    public function actionPay($invoiceId = null) {
+        if ($invoiceId) {
+            return $this->render('pay', [
+                'invoiceId' => $invoiceId
+            ]);
+        } else {
+            return $this->render('pay_input');
+        }
+    }
+
+    public function actionPayInvoice($invoiceId) {
+        if ($model = Invoice::findOne(['id' => $invoiceId])) {
+            $model->paid = 1;
+            $model->save();
+        } else {
+            Yii::$app->session->setFlash('error', 'Error occurred during payment.');
+        }
+        return $this->redirect(['/site/pay', "invoiceId" => $invoiceId]);
     }
 }

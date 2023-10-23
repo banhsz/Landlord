@@ -2,12 +2,13 @@
 
 namespace backend\controllers;
 
-use app\models\Invoice;
-use app\models\InvoiceSearch;
+use backend\models\Invoice;
+use backend\models\InvoiceSearch;
 use backend\models\Rental;
 use DateInterval;
 use DatePeriod;
 use DateTime;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -150,12 +151,19 @@ class InvoiceController extends Controller
                 $latestInvoice = $invoice->getLatestInvoice();
                 if (!$latestInvoice) { // First invoice -> 'period_start' is 'rent_start' date
                     $invoice->period_start = $rental->rent_start;
-                } else { // Not first invoice -> 'period_start' is the latest invoice 'period_end' +1 day
+                } else { // Not first invoice -> 'period_start' is the latest invoice +1 day (at 0:00)
                     $invoice->period_start = $latestInvoice->period_end + 86400; //86400 ticks = 1 day
                 }
                 // This will escape all scenarios in which we would start the invoice period in the future, which
                 // would be incorrect. This can happen if latest invoice is today or 'rent_start' is in the future.
-                if ($invoice->period_start > time()) continue;
+                // Ignore hour/minute because that would block invoicing at eg: 06-11 12:00 if last invoice is 06-10 22:00
+                // @deprecated: if ($invoice->period_start > time()) continue;
+                $date1 = date('Y-m-d', $invoice->period_start);
+                $date2 = date('Y-m-d', time());
+                if ($date1 > $date2) {
+                    echo "skipping" . ($rental->id) . "\n";
+                    continue;
+                }
 
                 // Calculate invoice 'period_end'
                 if (!$rental->rent_end) { // Continuous rental. 'period_end' is today.
@@ -165,17 +173,27 @@ class InvoiceController extends Controller
                 }
                 // This will escape the scenario where a period start would be after period end. This can happen
                 // if we want to calculate a period start for someone who left a while ago.
-                if ($invoice->period_start > $invoice->period_end) continue;
+                // Ignore hour/minute because that would block invoicing at eg: 06-11 12:00 if last invoice is 06-10 22:00
+                // @deprecated: if ($invoice->period_start > $invoice->period_end) continue;
+                $date1 = date('Y-m-d', $invoice->period_start);
+                $date2 = date('Y-m-d', $invoice->period_end);
+                if ($date1 > $date2) {
+                    echo "skipping" . ($rental->id) . "\n";
+                    continue;
+                }
 
                 // Calculate invoice 'amount'
                 // Monthly rent is set for each apartment. However, months can have different number of days (30,31,28)
                 // If someone partially rented a month, they should only pay for the days they rented, but since the
                 // months have different number of days, daily rent is fluctuating. We must calculate rent per month
-                // to bill accurately.
+                // to bill accurately. Ignore hour/minute because that would block invoicing at eg:
+                // 06-11 12:00 if last invoice is 06-10 22:00
                 $startDate = new DateTime();
                 $startDate->setTimestamp($invoice->period_start);
+                $startDate->setTime(0, 0);
                 $endDate = new DateTime();
                 $endDate->setTimestamp($invoice->period_end);
+                $endDate->setTime(0, 0);
                 $currentDate = clone $startDate;
                 $interval = new DateInterval('P1D'); // 1 day interval
                 $monthDays = [];
@@ -198,11 +216,11 @@ class InvoiceController extends Controller
                     // Calculate the number of days in the month
                     $daysInMonth = date("t", strtotime($firstDayOfMonth));
                     $breakdown[$year.'-'.$month] = [
-                      'total_days_for_month'    => (int)$daysInMonth,
-                      'rented_days_for_month'   => (int)$rentedDays,
-                      'monthly_rent'            => $rental->apartment->rent,
-                      'daily_rent'              => $rental->apartment->rent / (int)$daysInMonth,
-                      'rent_for_this_month'     => $rental->apartment->rent / (int)$daysInMonth * (int)$rentedDays,
+                        'total_days_for_month'    => (int)$daysInMonth,
+                        'rented_days_for_month'   => (int)$rentedDays,
+                        'monthly_rent'            => $rental->apartment->rent,
+                        'daily_rent'              => $rental->apartment->rent / (int)$daysInMonth,
+                        'rent_for_this_month'     => $rental->apartment->rent / (int)$daysInMonth * (int)$rentedDays,
                     ];
                     $sum += $breakdown[$year.'-'.$month]['rent_for_this_month'];
                 }
@@ -218,6 +236,4 @@ class InvoiceController extends Controller
         }
         return $this->redirect(['index']);
     }
-
-
 }

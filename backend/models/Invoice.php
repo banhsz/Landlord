@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace backend\models;
 
 use Yii;
 
@@ -65,5 +65,45 @@ class Invoice extends \yii\db\ActiveRecord
             ->where(["rental_id" => $this->rental_id])
             ->orderBy(["period_end" => SORT_DESC])
             ->one();
+    }
+
+    public function getRental() {
+        return $this->hasOne(Rental::class, ['id' => 'rental_id']);
+    }
+
+
+    //TODO: refactor ass code. not responsive either
+    public function renderBreakdownTable() {
+        // JSON data as a string
+        $jsonString = $this->breakdown;
+        // Decode the JSON into a PHP array
+        $data = json_decode($jsonString, true);
+        // Check if decoding was successful
+        if ($data !== null) {
+            echo '<h1>Monthly breakdown of invoice amount</h1>';
+            echo '<table border="1" class="table text-end">';
+            echo '<tr><th>Month</th><th>Total Days</th><th>Rented Days</th><th>Monthly Rent</th><th>Daily Rent</th><th>Rent for This Month</th></tr>';
+            foreach ($data as $month => $monthData) {
+                echo '<tr>';
+                echo '<td>' . $month . '</td>';
+                echo '<td>' . $monthData['total_days_for_month'] . '</td>';
+                echo '<td>' . $monthData['rented_days_for_month'] . '</td>';
+                echo '<td>' . Yii::$app->formatter->asDecimal($monthData['monthly_rent'], 0, '.') . ' Ft' . '</td>';
+                echo '<td>' . Yii::$app->formatter->asDecimal((int)$monthData['daily_rent'], 0, '.') . ' Ft' . '</td>';
+                echo '<td><strong>' . Yii::$app->formatter->asDecimal((int)$monthData['rent_for_this_month'], 0, '.') . ' Ft' . '</strong></td>';
+                echo '</tr>';
+            }
+            echo '<tr>';
+            echo '<td><strong>Total</strong></td>';
+            echo '<td></td>';
+            echo '<td></td>';
+            echo '<td></td>';
+            echo '<td></td>';
+            echo '<td><strong>' . Yii::$app->formatter->asDecimal($this->amount, 0, '.') . ' Ft' . '</strong></td>';
+            echo '</tr>';
+            echo '</table>';
+        } else {
+            echo 'Invalid JSON data';
+        }
     }
 }
