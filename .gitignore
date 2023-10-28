@@ -42,3 +42,4 @@ phpunit.phar
 /backend/web/index-test.php
 /backend/web/robots.txt
 /frontend/react/node_modules/
+/frontend/web/js/react/react_bundle_dev.js

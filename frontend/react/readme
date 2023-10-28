@@ -1,0 +1,16 @@
+1) During development use (while in react folder):
+npm run dev
+1.1) This will auto rebuild if a change was made to a component. This will build a file called 'react_bundle_dev.js'
+into the frontend/web/js/react folder. Do not push this file to git (it should be in .gitignore already).
+
+2) When pushing code (while in react folder):
+npm run prod
+2.1) This will build the production bundle file called 'react_bundle.js' into the frontend/web/js/react folder. This
+is the file you need to push.
+
+-----------------
+
+i) Since dev and prod builds into different .js files, it is important to include the correct one depending on the
+environment. Look at frontend/views/site/games.php for an example.
+
+i) You can find these commands in 'package.json' if you want to learn what the actually do.

@@ -1,11 +1,11 @@
 const path = require('path');
 
 module.exports = {
-    mode: 'production',
+    mode: 'development',
     entry: './src/index.js', // Entry point of your React application
     output: {
         path: path.resolve(__dirname, '../web/js/react'), // Output directory for bundled JS
-        filename: 'react_bundle.js', // Output filename
+        filename: 'react_bundle_dev.js', // Output filename
     },
     module: {
         rules: [
