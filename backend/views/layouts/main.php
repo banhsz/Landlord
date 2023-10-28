@@ -67,8 +67,8 @@ AppAsset::register($this);
                 <a class="btn text-white" href=""><span class="fa fa-user text-white mr-2"></span><?= Yii::$app->user->identity->username ?></a>
             </li>
             <li>
-                <a class="btn" href=""><span class="fa fa-bell text-white"></span></a>
-                <a class="navbar-notification-count text-white" href="">5</a>
+                <a class="btn" href="/notification"><span class="fa fa-bell text-white"></span></a>
+                <a class="navbar-notification-count text-white" href="/notification">15</a>
             </li>
         </ul>
     </nav>
@@ -95,7 +95,7 @@ AppAsset::register($this);
                             <p>Home</p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item <?= ($controller == 'notification') ? 'menu-is-opening menu-open' : '' ?>">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-user"></i>
                             <p>
@@ -105,7 +105,7 @@ AppAsset::register($this);
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="" class="nav-link">
+                                <a href="/notification" class="nav-link <?= ($controller == 'notification') ? 'active' : '' ?>">
                                     <i class="fa fa-bell nav-icon"></i>
                                     <p>Notifications</p>
                                 </a>
