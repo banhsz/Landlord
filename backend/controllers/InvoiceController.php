@@ -161,7 +161,6 @@ class InvoiceController extends Controller
                 $date1 = date('Y-m-d', $invoice->period_start);
                 $date2 = date('Y-m-d', time());
                 if ($date1 > $date2) {
-                    echo "skipping" . ($rental->id) . "\n";
                     continue;
                 }
 
@@ -178,7 +177,6 @@ class InvoiceController extends Controller
                 $date1 = date('Y-m-d', $invoice->period_start);
                 $date2 = date('Y-m-d', $invoice->period_end);
                 if ($date1 > $date2) {
-                    echo "skipping" . ($rental->id) . "\n";
                     continue;
                 }
 
