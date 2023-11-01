@@ -73,7 +73,7 @@ $this->registerJs("
             [
                 'attribute' => 'amount',
                 'value' => function ($model) {
-                    return Yii::$app->formatter->asDecimal($model->amount, 0, '.') . ' Ft';
+                    return $model->amount. ' Ft';
                 },
             ],
             [

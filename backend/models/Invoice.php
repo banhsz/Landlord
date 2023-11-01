@@ -88,9 +88,9 @@ class Invoice extends \yii\db\ActiveRecord
                 echo '<td>' . $month . '</td>';
                 echo '<td>' . $monthData['total_days_for_month'] . '</td>';
                 echo '<td>' . $monthData['rented_days_for_month'] . '</td>';
-                echo '<td>' . Yii::$app->formatter->asDecimal($monthData['monthly_rent'], 0, '.') . ' Ft' . '</td>';
-                echo '<td>' . Yii::$app->formatter->asDecimal((int)$monthData['daily_rent'], 0, '.') . ' Ft' . '</td>';
-                echo '<td><strong>' . Yii::$app->formatter->asDecimal((int)$monthData['rent_for_this_month'], 0, '.') . ' Ft' . '</strong></td>';
+                echo '<td>' . $monthData['monthly_rent'] . ' Ft' . '</td>';
+                echo '<td>' . (int)$monthData['daily_rent'] . ' Ft' . '</td>';
+                echo '<td><strong>' . (int)$monthData['rent_for_this_month'] . ' Ft' . '</strong></td>';
                 echo '</tr>';
             }
             echo '<tr>';
@@ -99,7 +99,7 @@ class Invoice extends \yii\db\ActiveRecord
             echo '<td></td>';
             echo '<td></td>';
             echo '<td></td>';
-            echo '<td><strong>' . Yii::$app->formatter->asDecimal($this->amount, 0, '.') . ' Ft' . '</strong></td>';
+            echo '<td><strong>' . $this->amount . ' Ft' . '</strong></td>';
             echo '</tr>';
             echo '</table>';
         } else {

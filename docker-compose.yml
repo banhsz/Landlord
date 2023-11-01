@@ -11,6 +11,8 @@ services:
       - ~/.composer-docker/cache:/root/.composer/cache:delegated
       # Mount source-code for development
       - ./:/app
+      # bullshit needed so that 'index.php' is appended at the end of yii pretty urls.
+      - ./frontend/docker-apache-config-frontend:/etc/apache2/sites-available/docker-apache-config-frontend.conf
 
   backend:
     build: backend
@@ -21,6 +23,8 @@ services:
       - ~/.composer-docker/cache:/root/.composer/cache:delegated
       # Mount source-code for development
       - ./:/app
+      # bullshit needed so that 'index.php' is appended at the end of yii pretty urls.
+      - ./backend/docker-apache-config-backend:/etc/apache2/sites-available/docker-apache-config-backend.conf
 
   mysql:
     image: mysql:5.7
@@ -29,6 +33,14 @@ services:
       - MYSQL_DATABASE=yii2advanced
       - MYSQL_USER=yii2advanced
       - MYSQL_PASSWORD=secret
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+    ports:
+      - "8080:80"
 
   #pgsql:
   #  image: postgres:9.5

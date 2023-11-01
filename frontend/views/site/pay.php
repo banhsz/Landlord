@@ -51,7 +51,7 @@ $this->registerJs("
                 echo '</tr>';
                 echo '<tr>';
                     echo '<td><strong>Amount</strong></td>';
-                    echo '<td><strong>' . Yii::$app->formatter->asDecimal($invoice->amount, 0, '.') . ' Ft' . '</strong></td>';
+                    echo '<td><strong>' . $invoice->amount . ' Ft' . '</strong></td>';
                 echo '</tr>';
             echo '</table>';
         ?>
