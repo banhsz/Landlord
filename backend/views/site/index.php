@@ -6,6 +6,7 @@ use backend\models\Apartment;
 use backend\models\Rental;
 use backend\models\Tenant;
 use yii\db\Query;
+use yii\web\View;
 
 $this->title = 'My Yii Application';
 $apartmentCount = Apartment::find()->count();
@@ -30,6 +31,10 @@ $occupiedApartmentCount = (new Query())
     ->andWhere(['or', ['is', 'rental.rent_end', null], ['>', 'rental.rent_end', time()]])
     ->groupBy('apartment.id')
     ->count();
+
+$this->registerJsFile('/js/chart/chart.js', ['position' => View::POS_END]);
+$this->registerJsFile('/js/chart/chartjs-plugin-datalabels.js', ['position' => View::POS_END]);
+$this->registerJsFile('/js/chart/index/indexCharts.js', ['position' => View::POS_END]);
 ?>
 
 <div class="site-index">
@@ -38,19 +43,14 @@ $occupiedApartmentCount = (new Query())
     </div>
     <div class="container-fluid text-center">
         <div class="row">
-            <div class="col-sm-4" style="height: 100px">
-                <h1><span class="text-landlord"><?= $apartmentCount ?></span> Apartments</h1>
-                <h2><span class="text-success"><?= $occupiedApartmentCount ?></span> Occupied/Pre-booked</h2>
-                <h2><span class="text-primary"><?= $apartmentCount - $occupiedApartmentCount ?></span> Free</h2>
+            <div class="col-sm-4 p-5">
+                <canvas id="apartmentChart" data-ocucupied="<?= $occupiedApartmentCount ?>" data-free="<?= $apartmentCount - $occupiedApartmentCount ?>"></canvas>
             </div>
-            <div class="col-sm-4" style="height: 100px">
-                <h1><span class="text-landlord"><?= $tenantCount ?></span> Tenants</h1>
+            <div class="col-sm-4 p-5">
+                <canvas id="tenantChart" data-tenant="<?= $tenantCount ?>"></canvas>
             </div>
-            <div class="col-sm-4" style="height: 100px">
-                <h1><span class="text-landlord"><?= $rentalCount ?></span> Total Rentals</h1>
-                <h2><span class="text-success"><?= $activeRentalCount ?></span> Active</h2>
-                <h2><span class="text-primary"><?= $futureRentalCount ?></span> Future</h2>
-                <h2><span class="text-danger"><?= $expiredRentalCount ?></span> Expired</h2>
+            <div class="col-sm-4 p-5">
+                <canvas id="rentalChart" data-active="<?= $activeRentalCount ?>" data-future="<?= $futureRentalCount ?>" data-expired="<?= $expiredRentalCount ?>"></canvas>
             </div>
         </div>
     </div>

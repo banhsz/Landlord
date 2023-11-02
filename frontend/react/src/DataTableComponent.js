@@ -29,6 +29,10 @@ function DataTableComponent() {
     ];
 
     async function getApps() {
+        //TODO: there must be a better way
+        //DOCKER
+        //await fetch('http://localhost:21080/api/your-action')
+        //XAMMP
         await fetch('http://landlord.backend/api/your-action')
             .then(response => response.json()) // Parse the JSON response
             .then(data => {
