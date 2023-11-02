@@ -13,6 +13,34 @@ $(document).ready(function() {
         }
     });
 
+    const invoiceChart = document.getElementById('invoiceChart');
+    const invoiceChartPaid = invoiceChart.getAttribute('data-paid');
+    const invoiceChartUnpaid = invoiceChart.getAttribute('data-unpaid');
+    new Chart(invoiceChart, {
+        type: 'doughnut',
+        data: {
+            labels: ['Paid', 'Unpaid'],
+            datasets: [{
+                label: 'Invoices',
+                data: [invoiceChartPaid, invoiceChartUnpaid],
+                borderWidth: 1,
+                backgroundColor: ['rgba(51, 204, 51)', 'rgba(255, 51, 0)'],
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Invoices',
+                    position: 'top',
+                    font: {
+                        size: 20
+                    }
+                }
+            },
+        }
+    });
+
     const apartmentChart = document.getElementById('apartmentChart');
     const apartmentChartOccupied = apartmentChart.getAttribute('data-ocucupied');
     const apartmentChartFree = apartmentChart.getAttribute('data-free');
@@ -24,9 +52,7 @@ $(document).ready(function() {
                 label: 'Apartments',
                 data: [apartmentChartOccupied, apartmentChartFree],
                 borderWidth: 1,
-                datalabels: {
-                    color: '#FFCE56'
-                }
+                backgroundColor: ['rgba(0, 153, 255)', 'rgba(51, 204, 51)'],
             }]
         },
         options: {
@@ -35,30 +61,10 @@ $(document).ready(function() {
                     display: true,
                     text: 'Apartments',
                     position: 'top', // You can set the position (top, left, right, bottom, or center)
+                    font: {
+                        size: 20
+                    }
                 },
-            },
-        }
-    });
-
-    const tenantChart = document.getElementById('tenantChart');
-    const tenantChartTenant = tenantChart.getAttribute('data-tenant');
-    new Chart(tenantChart, {
-        type: 'doughnut',
-        data: {
-            labels: ['Tenants'],
-            datasets: [{
-                label: 'Tenants',
-                data: [tenantChartTenant],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Tenants',
-                    position: 'top', // You can set the position (top, left, right, bottom, or center)
-                }
             },
         }
     });
@@ -74,7 +80,9 @@ $(document).ready(function() {
             datasets: [{
                 label: 'Rentals',
                 data: [rentalChartActive, rentalChartFuture, rentalChartExpired],
-                borderWidth: 1
+                borderWidth: 1,
+                backgroundColor: ['rgba(0, 153, 255)', 'rgba(255, 153, 51)', 'rgba(140, 140, 140)'],
+
             }]
         },
         options: {
@@ -82,7 +90,37 @@ $(document).ready(function() {
                 title: {
                     display: true,
                     text: 'Rentals',
-                    position: 'top', // You can set the position (top, left, right, bottom, or center)
+                    position: 'top',
+                    font: {
+                        size: 20
+                    }
+                }
+            },
+        }
+    });
+
+    const tenantChart = document.getElementById('tenantChart');
+    const tenantChartTenant = tenantChart.getAttribute('data-tenant');
+    new Chart(tenantChart, {
+        type: 'doughnut',
+        data: {
+            labels: ['Tenants'],
+            datasets: [{
+                label: 'Tenants',
+                data: [tenantChartTenant],
+                borderWidth: 1,
+                backgroundColor: ['rgba(0, 153, 255)'],
+            }]
+        },
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Tenants',
+                    position: 'top',
+                    font: {
+                        size: 15
+                    }
                 }
             },
         }
