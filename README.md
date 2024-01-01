@@ -4,7 +4,7 @@ Demo:
 
 http://landlord.szbanhidi.kozow.com/
 
-https://tenant.szbanhidi.kozow.com/
+http://tenant.szbanhidi.kozow.com/
 
 Landlord page:
 <img src="backend/web/img/backend.png">
