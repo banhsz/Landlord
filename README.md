@@ -2,9 +2,9 @@ Landlord is a web application for managing apartments for rental.
 
 Demo:
 
-http://landlord.szbanhidi.kozow.com/
+https://landlord.szbanhidi.kozow.com/
 
-http://tenant.szbanhidi.kozow.com/
+https://tenant.szbanhidi.kozow.com/
 
 Landlord page:
 <img src="backend/web/img/backend.png">
