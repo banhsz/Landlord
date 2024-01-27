@@ -11,6 +11,10 @@ $this->title = 'Login';
 ?>
 <div class="site-login">
     <div class="mt-5 offset-lg-3 col-lg-6">
+        <div class="alert alert-primary">
+            <strong class="mr-2">Demo account: </strong>admin - adminadmin
+        </div>
+
         <h1><?= Html::encode($this->title) ?></h1>
 
         <p>Please fill out the following fields to login:</p>
