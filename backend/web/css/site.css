@@ -187,3 +187,12 @@ table {
     padding: 2px;
     border-radius: 4px;
 }
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #F0F8FF !important;
+    background-color: #0dcaf0 !important;
+}
+
+#paymentChart {
+    min-height: 350px !important;
+}

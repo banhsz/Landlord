@@ -18,9 +18,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('<i class="fa fa-plus"></i>&nbsp;New Rental', ['create'], ['class' => 'btn btn-success']) ?>
-        <a href="<?= Url::to(['/rental', "activeOnly" => 1]); ?>" class="btn btn-primary"><span class="fa fa-user-check mr-1"></span>Show active only</a>
-        <a href="<?= Url::to('/rental'); ?>" class="btn btn-primary"><span class="fa fa-user mr-1"></span>Show all</a>
+        <?= Html::a('<i class="fa fa-plus"></i>&nbsp;New Rental', ['create'], ['class' => 'btn btn-success mb-1']) ?>
+        <a href="<?= Url::to(['/rental', "activeOnly" => 1]); ?>" class="btn btn-primary mb-1"><span class="fa fa-user-check mr-1"></span>Show active only</a>
+        <a href="<?= Url::to('/rental'); ?>" class="btn btn-primary mb-1"><span class="fa fa-user mr-1"></span>Show all</a>
     </p>
 
     <?php Pjax::begin(); ?>
@@ -56,6 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'headerOptions' => ['style' => 'width: 100px;'], // Adjust the width here
                 'contentOptions' => ['style' => 'width: 100px;'], // Adjust the width here
+                'header' => 'Actions&nbsp;'
             ],
             [
                 'attribute' => 'id',

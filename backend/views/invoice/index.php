@@ -33,6 +33,9 @@ $this->registerJs("
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
+        'options' => [
+            'class' => 'table-responsive grid-view',
+        ],
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'layout' => "{summary}\n{pager}\n{items}\n{pager}\n{summary}", // Place the pager at the top
@@ -52,6 +55,7 @@ $this->registerJs("
                 },
                 'headerOptions' => ['style' => 'width: 100px;'], // Adjust the width here
                 'contentOptions' => ['style' => 'width: 100px;'], // Adjust the width here
+                'header' => 'Actions&nbsp;'
             ],
             [
                 'attribute' => 'id',

@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'filterModel' => $searchModel,
             'columns' => $columns,
             'tableOptions' => ['class' => 'table table-striped'],
-            'layout' => "{summary}\n{pager}\n{items}\n{pager}\n{summary}", // Place the pager at the top
+            'layout' => "{summary}\n{pager}\n{items}\n{pager}\n", // Place the pager at the top
         ]); ?>
     <?php Pjax::end(); ?>
 </div>

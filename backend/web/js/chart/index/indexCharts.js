@@ -8,7 +8,7 @@ $(document).ready(function() {
         },
         labels: {
             value: {
-                color: 'black'
+                color: 'white'
             }
         }
     });
@@ -119,8 +119,54 @@ $(document).ready(function() {
                     text: 'Tenants',
                     position: 'top',
                     font: {
-                        size: 15
+                        size: 20
                     }
+                }
+            },
+        }
+    });
+
+    const paymentChart = document.getElementById('paymentChart');
+    new Chart(paymentChart, {
+        type: 'line',
+        data: {
+            labels: ['2023 September', '2023 October', '2023 November', '2023 December', '2024 January'],
+            datasets: [
+                {
+                    label: 'Ft',
+                    data: [100000, 200000, 1300000, 400000, 500000],
+                    pointStyle: 'circle',
+                    pointRadius: 10,
+                    pointHoverRadius: 15
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Payments (mock data)',
+                    position: 'top',
+                    font: {
+                        size: 20
+                    }
+                },
+                datalabels: {
+                    anchor: 'end',
+                    align: '190',
+                    clamp: true,
+                    font: {
+                        size: 15,
+                    },
+                    labels: {
+                        value: {
+                            color: 'black',
+                            backgroundColor: 'white',
+                            borderRadius: 10
+                        }
+                    },
                 }
             },
         }

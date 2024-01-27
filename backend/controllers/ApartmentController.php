@@ -187,6 +187,7 @@ class ApartmentController extends Controller
                 },
                 'headerOptions' => ['style' => 'width: 100px;'], // Adjust the width here
                 'contentOptions' => ['style' => 'width: 100px;'], // Adjust the width here
+                'header' => 'Actions&nbsp;'
             ],
             [
                 'attribute' => 'id',
@@ -254,31 +255,6 @@ class ApartmentController extends Controller
             //'updated_at',
         ];
 
-        $columnsSlim = [
-            [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Apartment $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                },
-                'headerOptions' => ['style' => 'width: 100px;'], // Adjust the width here
-                'contentOptions' => ['style' => 'width: 100px;'], // Adjust the width here
-            ],
-            [
-                'attribute' => 'name',
-                'value' => function ($model) {
-                    $pathToApartment = "/apartment/view?id=$model->id";
-                    return "<a href='$pathToApartment'>$model->name</a>";
-                },
-                'format' => 'html',
-            ],
-        ];
-
-        // If mobile device, return only few columns
-        if(preg_match("/iPhone|Android|iPad|iPod|webOS/", $_SERVER['HTTP_USER_AGENT'], $matches)) {
-            return $columnsSlim;
-        }
-
-        // Otherwise return regular columns
         return $columns;
     }
 
