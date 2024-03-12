@@ -196,3 +196,7 @@ table {
 #paymentChart {
     min-height: 350px !important;
 }
+
+.max-h-450 {
+    max-height: 450px
+}
