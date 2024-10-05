@@ -161,7 +161,9 @@ $(document).ready(function() {
                         return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' Ft';
                     },
                     anchor: 'end',
-                    align: '190',
+                    align: function(context) {
+                        return context.dataIndex === context.dataset.data.length - 1 ? '180' : '0';
+                    },
                     clamp: true,
                     font: {
                         size: 15,
@@ -170,7 +172,11 @@ $(document).ready(function() {
                         value: {
                             color: 'black',
                             backgroundColor: 'white',
-                            borderRadius: 10
+                            borderRadius: 10,
+                            borderColor: function(context) {
+                                return context.chart.data.datasets[0].borderColor; // Use dataset border color
+                            },
+                            borderWidth: 1
                         }
                     },
                 }
