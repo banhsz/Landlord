@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    let invoiceDataJS = invoiceData; // This must exist at this point.
     Chart.register(ChartDataLabels);
     Chart.defaults.set('plugins.datalabels', {
         anchor: 'end',
@@ -127,14 +128,16 @@ $(document).ready(function() {
     });
 
     const paymentChart = document.getElementById('paymentChart');
+    let months = (invoiceDataJS.map(item => item.year_month));
+    let values = (invoiceDataJS.map(item => item.total_amount));
     new Chart(paymentChart, {
         type: 'line',
         data: {
-            labels: ['2023 September', '2023 October', '2023 November', '2023 December', '2024 January'],
+            labels: months,
             datasets: [
                 {
-                    label: 'Ft',
-                    data: [100000, 200000, 1300000, 400000, 500000],
+                    label: 'Monthly total',
+                    data: values,
                     pointStyle: 'circle',
                     pointRadius: 10,
                     pointHoverRadius: 15
@@ -147,13 +150,16 @@ $(document).ready(function() {
             plugins: {
                 title: {
                     display: true,
-                    text: 'Payments (mock data)',
+                    text: 'Payments',
                     position: 'top',
                     font: {
                         size: 20
                     }
                 },
                 datalabels: {
+                    formatter: function(value, context) {
+                        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' Ft';
+                    },
                     anchor: 'end',
                     align: '190',
                     clamp: true,

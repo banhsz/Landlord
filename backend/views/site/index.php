@@ -1,10 +1,15 @@
 <?php
 /** @var yii\web\View $this */
 
+use backend\models\Invoice;
 use yii\web\View;
 
-$this->title = 'My Yii Application';
+$this->title = 'Landlord';
+$invoiceData = Invoice::getDashboardInvoiceData();
 
+$this->registerJs("    
+    let invoiceData = ".json_encode($invoiceData).";
+", View::POS_HEAD); // Must be loaded first
 $this->registerJsFile('/js/chart/chart.js', ['position' => View::POS_END]);
 $this->registerJsFile('/js/chart/chartjs-plugin-datalabels.js', ['position' => View::POS_END]);
 $this->registerJsFile('/js/chart/index/indexCharts.js', ['position' => View::POS_END]);
@@ -17,7 +22,7 @@ $this->registerJsFile('/js/chart/index/indexCharts.js', ['position' => View::POS
                 <canvas id="paymentChart"> </canvas>
             </div>
             <div class="col-sm-12 col-xl-12 col-xxl-6 p-4">
-                <h5 class="text-secondary font-weight-bold pb-2">Notifications (mock data)</h5>
+                <h5 class="text-secondary font-weight-bold pb-2">Notifications (wip)</h5>
                 <div class="alert alert-success d-flex flex-row justify-content-between">
                     <div class="text-left">
                         <span class="fa fa-money-bill-wave mr-2 text-success"></span><strong class="mr-2">Payment #23 received for invoice #155</strong>

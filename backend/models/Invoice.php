@@ -3,6 +3,8 @@
 namespace backend\models;
 
 use Yii;
+use yii\db\Query;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "invoice".
@@ -74,8 +76,7 @@ class Invoice extends \yii\db\ActiveRecord
         return $this->hasOne(Rental::class, ['id' => 'rental_id']);
     }
 
-
-    //TODO: refactor this code
+    //TODO: could be nicer
     public function renderBreakdownTable() {
         // JSON data as a string
         $jsonString = $this->breakdown;
@@ -110,5 +111,41 @@ class Invoice extends \yii\db\ActiveRecord
         } else {
             echo 'Invalid JSON data';
         }
+    }
+
+    public static function getDashboardInvoiceData() {
+        // 1) Last 5 months, ascending order
+        $months = [];
+        for ($i = 4; $i >= 0; $i--) {
+            $months[] = date('Y F', strtotime("-$i month"));
+        }
+
+        // 2) Get the last 5 months of data (paid invoices)
+        $query = (new Query())
+            ->select([
+                "DATE_FORMAT(FROM_UNIXTIME(paid_at), '%Y %M') AS yearMonth",
+                "SUM(amount) AS totalAmount"
+            ])
+            ->from('invoice')
+            ->where(['>=', 'FROM_UNIXTIME(paid_at)', date('Y-m-d', strtotime('-5 months'))])
+            ->groupBy('yearMonth')
+            ->orderBy(['yearMonth' => SORT_DESC])
+            ->all();
+        $queryResult = ArrayHelper::map($query, 'yearMonth', 'totalAmount');
+
+        // 3) Map the results for the map created in 1)
+        // note: mapping is done by yeah/month FORMAT so don't change format in step 1) and 2). If needed, change after 3).
+        $result = [];
+        foreach ($months as $month) {
+            $result[] = [
+                'year_month' => $month,
+                'total_amount' => $queryResult[$month] ?? 0
+            ];
+        }
+
+        // 4) format label/value here if needed
+        // not needed for now
+
+        return $result;
     }
 }
