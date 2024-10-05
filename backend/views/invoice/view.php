@@ -50,6 +50,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             'paid',
+            [
+                'attribute' => 'paid_at',
+                'value' => function ($model) {
+                    return isset($model->paid_at) ? date('Y-m-d', $model->paid_at) : null;
+                },
+            ],
             'created_by',
             'updated_by',
             'created_at',
