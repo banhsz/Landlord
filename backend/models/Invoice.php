@@ -18,6 +18,7 @@ use Yii;
  * @property int|null $updated_by
  * @property int|null $created_at
  * @property int|null $updated_at
+ * @property int|null $paid_at
  */
 class Invoice extends \yii\db\ActiveRecord
 {
@@ -35,7 +36,8 @@ class Invoice extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['rental_id', 'period_start', 'period_end', 'amount', 'paid', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['rental_id', 'period_start', 'period_end', 'amount', 'paid', 'created_by',
+                'updated_by', 'created_at', 'updated_at', 'paid_at'], 'integer'],
             [['breakdown'], 'string'],
         ];
     }
@@ -57,6 +59,7 @@ class Invoice extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'paid_at' => 'Paid At',
         ];
     }
 
@@ -72,7 +75,7 @@ class Invoice extends \yii\db\ActiveRecord
     }
 
 
-    //TODO: refactor ass code. not responsive either
+    //TODO: refactor this code
     public function renderBreakdownTable() {
         // JSON data as a string
         $jsonString = $this->breakdown;
@@ -81,7 +84,8 @@ class Invoice extends \yii\db\ActiveRecord
         // Check if decoding was successful
         if ($data !== null) {
             echo '<h1>Monthly breakdown of invoice amount</h1>';
-            echo '<table border="1" class="table text-end">';
+            echo '<div style="overflow-x:auto; font-size:13px">';
+            echo '<table border="1" class="table text-end" style="width:auto">';
             echo '<tr><th>Month</th><th>Total Days</th><th>Rented Days</th><th>Monthly Rent</th><th>Daily Rent</th><th>Rent for This Month</th></tr>';
             foreach ($data as $month => $monthData) {
                 echo '<tr>';
@@ -102,6 +106,7 @@ class Invoice extends \yii\db\ActiveRecord
             echo '<td><strong>' . $this->amount . ' Ft' . '</strong></td>';
             echo '</tr>';
             echo '</table>';
+            echo '</div>';
         } else {
             echo 'Invalid JSON data';
         }

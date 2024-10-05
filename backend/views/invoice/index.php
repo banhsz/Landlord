@@ -86,6 +86,12 @@ $this->registerJs("
                     return $model->paid ? "Yes" : "No";
                 },
             ],
+            [
+                'attribute' => 'paid_at',
+                'value' => function ($model) {
+                    return isset($model->paid_at) ? date('Y-m-d', $model->paid_at) : null;
+                },
+            ],
             //'created_by',
             //'updated_by',
             'created_at',

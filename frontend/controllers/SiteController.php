@@ -317,6 +317,7 @@ class SiteController extends Controller
     public function actionPayInvoice($invoiceId) {
         if ($model = Invoice::findOne(['id' => $invoiceId])) {
             $model->paid = 1;
+            $model->paid_at = time();
             $model->save();
         } else {
             Yii::$app->session->setFlash('error', 'Error occurred during payment.');
