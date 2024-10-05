@@ -17,7 +17,8 @@ class InvoiceSearch extends Invoice
     public function rules()
     {
         return [
-            [['id', 'rental_id', 'period_start', 'period_end', 'amount', 'paid', 'created_by', 'updated_by', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'rental_id', 'period_start', 'period_end', 'amount', 'paid',
+                'created_by', 'updated_by', 'created_at', 'updated_at', 'paid_at'], 'integer'],
         ];
     }
 
@@ -70,6 +71,7 @@ class InvoiceSearch extends Invoice
             'updated_by' => $this->updated_by,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'paid_at' => $this->paid_at,
         ]);
 
         return $dataProvider;
