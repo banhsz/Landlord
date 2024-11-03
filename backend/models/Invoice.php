@@ -156,10 +156,10 @@ class Invoice extends \yii\db\ActiveRecord
             if ($this->period_end && !is_numeric($this->period_end)) $this->period_end = strtotime($this->period_end);
             if ($this->paid_at && !is_numeric($this->paid_at)) $this->paid_at = strtotime($this->paid_at);
             $this->updated_at = time();
-            $this->updated_by = Yii::$app->user->identity->getId();
+            $this->updated_by = Yii::$app->user->identity ? Yii::$app->user->identity->getId() : null;
             if ($this->isNewRecord) {
                 $this->created_at = time();
-                $this->created_by = Yii::$app->user->identity->getId();
+                $this->created_by = Yii::$app->user->identity ? Yii::$app->user->identity->getId() : null;;
             }
             return true;
         }
