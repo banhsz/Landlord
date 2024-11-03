@@ -38,9 +38,10 @@ class Invoice extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['rental_id', 'period_start', 'period_end', 'amount', 'paid', 'created_by',
-                'updated_by', 'created_at', 'updated_at', 'paid_at'], 'integer'],
+            [['rental_id','amount', 'paid', 'created_by',
+                'updated_by', 'created_at', 'updated_at'], 'integer'],
             [['breakdown'], 'string'],
+            [['period_start', 'period_end', 'paid_at' ], 'safe'],
         ];
     }
 
@@ -84,7 +85,7 @@ class Invoice extends \yii\db\ActiveRecord
         $data = json_decode($jsonString, true);
         // Check if decoding was successful
         if ($data !== null) {
-            echo '<h1>Monthly breakdown of invoice amount</h1>';
+            echo '<h1>Rent</h1>';
             echo '<div style="overflow-x:auto; font-size:13px">';
             echo '<table border="1" class="table text-end" style="width:auto">';
             echo '<tr><th>Month</th><th>Total Days</th><th>Rented Days</th><th>Monthly Rent</th><th>Daily Rent</th><th>Rent for This Month</th></tr>';
@@ -147,5 +148,21 @@ class Invoice extends \yii\db\ActiveRecord
         // not needed for now
 
         return $result;
+    }
+
+    public function beforeSave($insert) {
+        if (parent::beforeSave($insert)) {
+            if ($this->period_start && !is_numeric($this->period_start)) $this->period_start = strtotime($this->period_start);
+            if ($this->period_end && !is_numeric($this->period_end)) $this->period_end = strtotime($this->period_end);
+            if ($this->paid_at && !is_numeric($this->paid_at)) $this->paid_at = strtotime($this->paid_at);
+            $this->updated_at = time();
+            $this->updated_by = Yii::$app->user->identity->getId();
+            if ($this->isNewRecord) {
+                $this->created_at = time();
+                $this->created_by = Yii::$app->user->identity->getId();
+            }
+            return true;
+        }
+        return false;
     }
 }

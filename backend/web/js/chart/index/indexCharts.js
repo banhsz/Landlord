@@ -136,7 +136,7 @@ $(document).ready(function() {
             labels: months,
             datasets: [
                 {
-                    label: 'Monthly total',
+                    label: 'Monthly total (Ft)',
                     data: values,
                     pointStyle: 'circle',
                     pointRadius: 10,
@@ -158,6 +158,9 @@ $(document).ready(function() {
                 },
                 datalabels: {
                     formatter: function(value, context) {
+                        if (window.innerWidth <= 800) {
+                            return null;
+                        }
                         return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' Ft';
                     },
                     anchor: 'end',
