@@ -29,19 +29,53 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions' => function ($model, $key, $index, $grid) {
+            if ($model->read) {
+                return ['style' => 'filter: contrast(60%)'];
+            } else {
+                return [];
+            }
+        },
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
+            [
+                "attribute" => 'id',
+                'headerOptions' => ['style' => 'width: 75px;'],
+            ],
             'message',
-            'source_class',
-            'source_entity',
-            'read',
+            [
+                "attribute" => 'source_class',
+                'headerOptions' => ['style' => 'width: 250px;'],
+            ],
+            [
+                "attribute" => 'source_entity',
+                'headerOptions' => ['style' => 'width: 100px;'],
+            ],
+            [
+                "attribute" => 'type',
+                'headerOptions' => ['style' => 'width: 95px;'],
+            ],
+            [
+                "attribute" => 'read',
+                'headerOptions' => ['style' => 'width: 75px;'],
+            ],
+            [
+                'header' => '',
+                'value' => function ($model) {
+                    if ($link = $model->linkToEntity()) {
+                        return "<a href='" . $link . "'><span class='fa fa-link'></span></a>";
+                    } else {
+                        return "";
+                    }
+                },
+                'format' => 'html',
+                'headerOptions' => ['style' => 'width: 50px;']
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Notification $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                 },
+                 'headerOptions' => ['style' => 'width: 100px;']
             ],
         ],
     ]); ?>

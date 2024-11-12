@@ -4,6 +4,7 @@
 /** @var string $content */
 
 use backend\assets\AppAsset;
+use backend\models\Notification;
 use common\widgets\Alert;
 use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
@@ -68,7 +69,10 @@ AppAsset::register($this);
             </li>
             <li>
                 <a class="btn" href="/notification"><span class="fa fa-bell text-white"></span></a>
-                <a class="navbar-notification-count text-white" href="/notification">15</a>
+                <a class="navbar-notification-count text-white <?= Notification::getUnreadNotificationCount() == 0 ? 'd-none' : '' ?>"
+                   href="/notification">
+                    <?= Notification::getUnreadNotificationCount() ?>
+                </a>
             </li>
         </ul>
     </nav>

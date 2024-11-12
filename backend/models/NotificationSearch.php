@@ -17,7 +17,9 @@ class NotificationSearch extends Notification
     public function rules()
     {
         return [
-            [['id', 'message', 'source_class', 'source_entity', 'read'], 'integer'],
+            [['message', 'source_class', 'type'], 'string'],
+            [['source_entity', 'source_entity'], 'integer'],
+            [['read'], 'safe'],
         ];
     }
 
@@ -62,6 +64,7 @@ class NotificationSearch extends Notification
             'source_class' => $this->source_class,
             'source_entity' => $this->source_entity,
             'read' => $this->read,
+            'type' => $this->type,
         ]);
 
         return $dataProvider;
