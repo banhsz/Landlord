@@ -65,7 +65,7 @@ AppAsset::register($this);
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto pr-2">
             <li>
-                <a class="btn text-white" href=""><span class="fa fa-user text-white mr-2"></span><?= Yii::$app->user->identity->username ?></a>
+                <a class="btn text-white" href="/profile"><span class="fa fa-user text-white mr-2"></span><?= Yii::$app->user->identity->username ?></a>
             </li>
             <li>
                 <a class="btn" href="/notification"><span class="fa fa-bell text-white"></span></a>
@@ -99,25 +99,25 @@ AppAsset::register($this);
                             <p>Home</p>
                         </a>
                     </li>
-                    <li class="nav-item <?= ($controller == 'notification') ? 'menu-is-opening menu-open' : '' ?>">
+                    <li class="nav-item <?= ($controller == 'notification' || $controller == 'profile') ? 'menu-is-opening menu-open' : '' ?>">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-user"></i>
                             <p>
-                                Profile (<?= Yii::$app->user->identity->username ?>)
+                                <?= Yii::$app->user->identity->username ?>
                                 <i class="right fa fa-angle-left"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/notification" class="nav-link <?= ($controller == 'notification') ? 'active' : '' ?>">
-                                    <i class="fa fa-bell nav-icon"></i>
-                                    <p>Notifications</p>
+                                <a href="/profile" class="nav-link <?= ($controller == 'profile') ? 'active' : '' ?>">
+                                    <i class="fa fa-user-cog nav-icon"></i>
+                                    <p>Profile</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="" class="nav-link">
-                                    <i class="fa fa-user-cog nav-icon"></i>
-                                    <p>Profile Settings</p>
+                                <a href="/notification" class="nav-link <?= ($controller == 'notification') ? 'active' : '' ?>">
+                                    <i class="fa fa-bell nav-icon"></i>
+                                    <p>Notifications</p>
                                 </a>
                             </li>
                         </ul>
