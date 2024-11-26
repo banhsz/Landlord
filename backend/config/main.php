@@ -1,4 +1,6 @@
 <?php
+use yii\filters\AccessControl;
+
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
     require __DIR__ . '/../../common/config/params-local.php',
@@ -12,6 +14,21 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [],
+    'as access' => [
+        'class' => AccessControl::class,
+        'except' => ['api/*'], // exclude ApiController (* = all actions within it)
+        'rules' => [
+            [
+                'allow' => true, // allow
+                'actions' => ['login'], // login
+                'roles' => ['?'], // for unauthenticated
+            ],
+            [
+                'allow' => true, // allow everything
+                'roles' => ['@'], // for authenticated
+            ],
+        ],
+    ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',

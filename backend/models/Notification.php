@@ -57,7 +57,8 @@ class Notification extends \yii\db\ActiveRecord
         $notification->source_class = $class;
         $notification->source_entity = $entity;
         $notification->type = $type;
-        $notification->save();
+        $notification->read = 0;
+        return $notification->save();
     }
 
     public function linkToEntity() {
