@@ -47,6 +47,9 @@ class TitkosSearch extends Titkos
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 11, // Set the maximum number of items per page here
+            ],
         ]);
 
         $this->load($params);

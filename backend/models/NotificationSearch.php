@@ -47,6 +47,9 @@ class NotificationSearch extends Notification
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 13, // Set the maximum number of items per page here
+            ],
         ]);
 
         $this->load($params);

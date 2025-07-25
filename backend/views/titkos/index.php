@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'class' => 'table-responsive grid-view',
         ],
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        //'filterModel' => $searchModel,
         'columns' => [
             [
                 'label' => 'Numbers',
@@ -42,12 +42,18 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'sorsolas',
                 'value' => function ($model) {
-                    return date('y/m/d', $model->sorsolas);
+                    return date('m/d', $model->sorsolas);
                 },
                 'contentOptions' => ['style' => 'white-space: nowrap;'],
             ],
-            'talalat',
-            'nyeremeny',
+            [
+                'attribute' => 'talalat',
+                'contentOptions' => ['style' => 'white-space: nowrap;'],
+            ],
+            [
+                'attribute' => 'nyeremeny',
+                'contentOptions' => ['style' => 'white-space: nowrap;'],
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Titkos $model, $key, $index, $column) {

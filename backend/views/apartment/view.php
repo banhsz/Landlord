@@ -102,7 +102,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         return Url::toRoute(['/rental/'.$action, 'id' => $model->id]);
                                     },
                                     'headerOptions' => ['style' => 'width: 100px;'], // Adjust the width here
-                                    'contentOptions' => ['style' => 'width: 100px;'], // Adjust the width here
+                                    'contentOptions' => ['class' => 'action-column-nowrap'], // Adjust the width here
                                 ],
                                 [
                                     'attribute' => 'id',
