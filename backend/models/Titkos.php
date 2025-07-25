@@ -54,9 +54,19 @@ class Titkos extends \yii\db\ActiveRecord
             'a5' => 'A5',
             'b1' => 'B1',
             'b2' => 'B2',
-            'sorsolas' => 'Sorsolas',
-            'talalat' => 'Talalat',
-            'nyeremeny' => 'Nyeremeny',
+            'sorsolas' => 'Date',
+            'talalat' => 'Hit',
+            'nyeremeny' => 'Win',
         ];
+    }
+
+    public function getFormattedNumberText() {
+        return sprintf('%02d ', $this->a1) .
+            sprintf('%02d ', $this->a2) .
+            sprintf('%02d ', $this->a3) .
+            sprintf('%02d ', $this->a4) .
+            sprintf('%02d / ', $this->a5) .
+            sprintf('%02d ', $this->b1) .
+            sprintf('%02d ', $this->b2);
     }
 }

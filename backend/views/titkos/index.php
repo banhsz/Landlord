@@ -13,34 +13,38 @@ use yii\widgets\Pjax;
 $this->title = 'Titkos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="titkos-index">
+<div class="titkos-index p-3">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Titkos', ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Auto Create Titkos', ['auto-create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<i class="fa fa-plus pr-1"></i>Create Titkos', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<i class="fa fa-magic pr-1"></i>Auto Create Titkos', ['auto-create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
+        'options' => [
+            'class' => 'table-responsive grid-view',
+        ],
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            'a1',
-            'a2',
-            'a3',
-            'a4',
-            'a5',
-            'b1',
-            'b2',
+            [
+                'label' => 'Numbers',
+                'value' => function ($model) {
+                    return $model->getFormattedNumberText();
+                },
+                'contentOptions' => ['style' => 'white-space: nowrap;'],
+            ],
             [
                 'attribute' => 'sorsolas',
                 'value' => function ($model) {
-                    return date('Y-M-d', $model->sorsolas);
+                    return date('y/m/d', $model->sorsolas);
                 },
+                'contentOptions' => ['style' => 'white-space: nowrap;'],
             ],
             'talalat',
             'nyeremeny',
